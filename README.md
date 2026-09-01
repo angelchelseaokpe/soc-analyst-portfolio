@@ -33,3 +33,102 @@ The purpose was to investigate how failed authentication attempts appear within 
 - **Logon Type:** 2 — Interactive Logon
 - **Source Network Address:** 127.0.0.1
 - **Time Range:** Approximately 14:55–14:56
+
+## Windows Event Viewer Investigation
+
+I began the investigation in Windows Event Viewer by navigating to:
+
+`Windows Logs → Security`
+
+I filtered the Security log for **Event ID 4625** to identify failed authentication attempts.
+
+The investigation identified **5 failed login events** associated with the test account `Bob`.
+
+Analysis of the events showed:
+
+- **Failure Reason:** Unknown user name or bad password
+- **Logon Type:** 2 (Interactive)
+- **Source Network Address:** 127.0.0.1
+- **Failed Attempts:** 5
+
+Logon Type 2 indicated that the authentication attempts were made interactively at the Windows sign-in screen.
+
+The source address `127.0.0.1` is the local loopback address, indicating that the activity originated from the same Windows virtual machine rather than an external network host.
+
+## Splunk SIEM Investigation
+
+After identifying the failed login events in Windows Event Viewer, I investigated the same Windows Security events using **Splunk Enterprise**.
+
+The aim was to practise searching, filtering and summarising security events using Splunk Search Processing Language (SPL).
+
+### Log Ingestion
+
+Splunk Enterprise was configured to collect Windows Security Event Logs from the Windows 10 virtual machine.
+
+The events were ingested using:
+
+- **Source:** WinEventLog:Security
+- **Sourcetype:** WinEventLog:Security
+- **Host:** DESKTOP-TLPTHVG
+
+### Initial Event Search
+
+I searched for failed login events using:
+
+```spl
+EventCode=4625
+```
+
+The search returned **5 events**, matching the failed login attempts previously identified in Windows Event Viewer.
+
+### Detailed Event Analysis
+
+I then used SPL to display the fields relevant to the investigation:
+
+```spl
+index=* EventCode=4625
+| table _time host Account_Name Failure_Reason Logon_Type Source_Network_Address
+```
+
+This allowed me to analyse the event timestamp, affected account, host, failure reason, logon type and source address.
+
+### Counting Failed Login Attempts
+
+I used the following query to count the failed login events by account:
+
+```spl
+index=* EventCode=4625
+| stats count by Account_Name
+```
+
+The investigation confirmed **5 failed login events** associated with the test account.
+
+### Creating an Event Timeline
+
+I also used SPL to group the events and identify the first and last observed activity:
+
+```spl
+index=* EventCode=4625
+| stats count earliest(_time) AS first_seen latest(_time) AS last_seen by Account_Name, host, Source_Network_Address
+| convert ctime(first_seen) ctime(last_seen)
+```
+
+The five failed login attempts occurred within approximately **49 seconds**.
+
+## Triage Decision
+
+Based on the investigation, I made the following triage decision:
+
+- **Classification:** True Positive — Benign Test Activity
+- **Severity:** Low
+- **Disposition:** Closed
+
+The failed login events were genuine authentication failures, meaning the alert was a true positive. However, the activity had been intentionally generated as part of the controlled lab exercise and therefore did not represent malicious activity.
+
+In a real SOC environment, further investigation would include:
+
+- Confirming the activity with the account owner
+- Checking for successful logins following the failed attempts
+- Reviewing whether the same source targeted additional accounts
+- Investigating the source IP address
+- Escalating the incident if brute-force or account-compromise behaviour was suspected
