@@ -42,7 +42,19 @@ I began the investigation in Windows Event Viewer by navigating to:
 
 I filtered the Security log for **Event ID 4625** to identify failed authentication attempts.
 
+### Evidence - Filtering for Event ID 4625
+
+The Windows Security log was filtered for Event ID 4625 to isolate failed logon activity.
+
+![Windows Event Viewer filtered for Event ID 4625](screenshots/01-event-viewer-filter-4625.png)
+
 The investigation identified **5 failed login events** associated with the test account `Bob`.
+
+### Evidence - Failed Login Events
+
+The filtered Security log returned five Event ID 4625 events within a short time period.
+
+![Five Event ID 4625 failed login events](screenshots/02-event-viewer-five-failed-logins.png)
 
 Analysis of the events showed:
 
@@ -54,6 +66,12 @@ Analysis of the events showed:
 Logon Type 2 indicated that the authentication attempts were made interactively at the Windows sign-in screen.
 
 The source address `127.0.0.1` is the local loopback address, indicating that the activity originated from the same Windows virtual machine rather than an external network host.
+
+### Evidence - Event 4625 Details
+
+Reviewing the individual event provided additional authentication information, including the target account, failure reason and logon type.
+
+![Windows Event ID 4625 event details](screenshots/03-event-viewer-event-details.png)
 
 ## Splunk SIEM Investigation
 
@@ -81,6 +99,12 @@ EventCode=4625
 
 The search returned **5 events**, matching the failed login attempts previously identified in Windows Event Viewer.
 
+### Evidence - Splunk Event Search
+
+The initial Splunk search returned five Event ID 4625 events, matching the activity identified in Windows Event Viewer.
+
+![Splunk search for Event ID 4625](screenshots/04-splunk-4625-search.png)
+
 ### Detailed Event Analysis
 
 I then used SPL to display the fields relevant to the investigation:
@@ -91,6 +115,12 @@ index=* EventCode=4625
 ```
 
 This allowed me to analyse the event timestamp, affected account, host, failure reason, logon type and source address.
+
+### Evidence - SPL Field Analysis
+
+The selected fields provided a concise view of the five authentication failures and supported comparison of the account, host, failure reason, logon type and source network address.
+
+![Splunk detailed field analysis](screenshots/05-splunk-field-analysis.png)
 
 ### Counting Failed Login Attempts
 
@@ -114,6 +144,12 @@ index=* EventCode=4625
 ```
 
 The five failed login attempts occurred within approximately **49 seconds**.
+
+### Evidence - Event Timeline Analysis
+
+The SPL statistics query grouped the failed authentication activity by account, host and source address while identifying the earliest and latest observed events.
+
+![Splunk event timeline analysis](screenshots/06-splunk-event-timeline.png)
 
 ## Triage Decision
 
