@@ -1,134 +1,39 @@
-# Incident 001: Failed Login Investigation - Windows Event ID 4625
+# SOC Analyst Portfolio
 
-## Project Overview
+Welcome to my cybersecurity portfolio.
 
-This project was created as part of my personal SOC home lab to develop practical experience beyond academic study and build evidence of my SOC investigation skills.
+I created this portfolio to document my practical development in Security Operations Centre (SOC) analysis, SIEM investigation, security monitoring and incident response.
 
-The aim was to practise a basic Tier 1 SOC investigation workflow, including Windows Security log analysis, authentication monitoring, alert investigation, SIEM analysis, evidence collection, risk assessment and incident documentation.
+Alongside my BSc (Hons) Cyber Security degree, I have been developing hands-on Blue Team skills through personal SOC lab investigations and practical cybersecurity training.
 
-I generated controlled failed login activity on a Windows 10 virtual machine and investigated the resulting Windows Event ID 4625 events using both Windows Event Viewer and Splunk Enterprise.
+My aim is to demonstrate not only the tools I have used, but also how I approach security alerts, analyse evidence, make triage decisions and document investigation findings.
 
-## Lab Environment
+## Projects
 
-- Windows 10 Virtual Machine
-- Oracle VirtualBox
-- Windows Event Viewer
-- Windows Security Event Logs
-- Splunk Enterprise
-- Splunk Search Processing Language (SPL)
+### Incident 001: Failed Login Investigation - Windows Event ID 4625
 
-## Investigation Scenario
+Investigated five controlled failed login attempts using **Windows Event Viewer and Splunk Enterprise** to simulate a Tier 1 SOC investigation workflow.
 
-Five controlled failed login attempts were generated against a local test account named `Bob`.
+**Skills demonstrated:**
+- Windows Security Event Log analysis
+- Splunk SIEM
+- Basic SPL
+- Authentication-event analysis
+- Alert triage
+- Event timeline analysis
+- Risk assessment
+- Incident documentation
 
-The purpose was to investigate how failed authentication attempts appear within Windows Security logs and how the same events can be analysed using a SIEM platform.
+[View the full investigation](./01-failed-login-investigation/README.md)
 
-### Event Details
+## Current Development
 
-- **Event ID:** 4625
-- **Event Type:** Failed Logon
-- **Log Source:** Windows Security Logs
-- **Target Account:** Bob
-- **Number of Failed Attempts:** 5
-- **Logon Type:** 2 — Interactive Logon
-- **Source Network Address:** 127.0.0.1
-- **Time Range:** Approximately 14:55–14:56
+I am continuing to develop my practical SOC and Blue Team skills through:
 
-## Windows Event Viewer Investigation
+- TryHackMe SOC Level 1
+- SIEM and log analysis
+- Incident investigation
+- Threat detection
+- Windows security monitoring
 
-I began the investigation in Windows Event Viewer by navigating to:
-
-`Windows Logs → Security`
-
-I filtered the Security log for **Event ID 4625** to identify failed authentication attempts.
-
-The investigation identified **5 failed login events** associated with the test account `Bob`.
-
-Analysis of the events showed:
-
-- **Failure Reason:** Unknown user name or bad password
-- **Logon Type:** 2 (Interactive)
-- **Source Network Address:** 127.0.0.1
-- **Failed Attempts:** 5
-
-Logon Type 2 indicated that the authentication attempts were made interactively at the Windows sign-in screen.
-
-The source address `127.0.0.1` is the local loopback address, indicating that the activity originated from the same Windows virtual machine rather than an external network host.
-
-## Splunk SIEM Investigation
-
-After identifying the failed login events in Windows Event Viewer, I investigated the same Windows Security events using **Splunk Enterprise**.
-
-The aim was to practise searching, filtering and summarising security events using Splunk Search Processing Language (SPL).
-
-### Log Ingestion
-
-Splunk Enterprise was configured to collect Windows Security Event Logs from the Windows 10 virtual machine.
-
-The events were ingested using:
-
-- **Source:** WinEventLog:Security
-- **Sourcetype:** WinEventLog:Security
-- **Host:** DESKTOP-TLPTHVG
-
-### Initial Event Search
-
-I searched for failed login events using:
-
-```spl
-EventCode=4625
-```
-
-The search returned **5 events**, matching the failed login attempts previously identified in Windows Event Viewer.
-
-### Detailed Event Analysis
-
-I then used SPL to display the fields relevant to the investigation:
-
-```spl
-index=* EventCode=4625
-| table _time host Account_Name Failure_Reason Logon_Type Source_Network_Address
-```
-
-This allowed me to analyse the event timestamp, affected account, host, failure reason, logon type and source address.
-
-### Counting Failed Login Attempts
-
-I used the following query to count the failed login events by account:
-
-```spl
-index=* EventCode=4625
-| stats count by Account_Name
-```
-
-The investigation confirmed **5 failed login events** associated with the test account.
-
-### Creating an Event Timeline
-
-I also used SPL to group the events and identify the first and last observed activity:
-
-```spl
-index=* EventCode=4625
-| stats count earliest(_time) AS first_seen latest(_time) AS last_seen by Account_Name, host, Source_Network_Address
-| convert ctime(first_seen) ctime(last_seen)
-```
-
-The five failed login attempts occurred within approximately **49 seconds**.
-
-## Triage Decision
-
-Based on the investigation, I made the following triage decision:
-
-- **Classification:** True Positive — Benign Test Activity
-- **Severity:** Low
-- **Disposition:** Closed
-
-The failed login events were genuine authentication failures, meaning the alert was a true positive. However, the activity had been intentionally generated as part of the controlled lab exercise and therefore did not represent malicious activity.
-
-In a real SOC environment, further investigation would include:
-
-- Confirming the activity with the account owner
-- Checking for successful logins following the failed attempts
-- Reviewing whether the same source targeted additional accounts
-- Investigating the source IP address
-- Escalating the incident if brute-force or account-compromise behaviour was suspected
+Additional investigations will be added to this portfolio as I continue developing my skills.
