@@ -1,4 +1,4 @@
-# Incident 001: Failed Login Investigation — Windows Event ID 4625
+# Incident 001: Failed Login Investigation - Windows Event ID 4625
 
 ## Project Overview
 
