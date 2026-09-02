@@ -2,38 +2,97 @@
 
 Welcome to my cybersecurity portfolio.
 
-I created this portfolio to document my practical development in Security Operations Centre (SOC) analysis, SIEM investigation, security monitoring and incident response.
+I created this portfolio to document my practical and academic development toward a career in Security Operations Centre (SOC) and Blue Team cybersecurity.
 
-Alongside my BSc (Hons) Cyber Security degree, I have been developing hands-on Blue Team skills through personal SOC lab investigations and practical cybersecurity training.
+As a Cyber Security graduate, I am developing hands-on experience in security monitoring, SIEM analysis, Windows security logs, incident investigation and alert triage alongside my academic understanding of cybersecurity risk and SOC effectiveness.
 
-My aim is to demonstrate not only the tools I have used, but also how I approach security alerts, analyse evidence, make triage decisions and document investigation findings.
+This portfolio will continue to grow as I complete additional SOC investigations, Blue Team labs and cybersecurity training.
+
+---
 
 ## Projects
 
-### Incident 001: Failed Login Investigation - Windows Event ID 4625
+### [Incident 001: Failed Login Investigation](./01-failed-login-investigation/)
 
-Investigated five controlled failed login attempts using **Windows Event Viewer and Splunk Enterprise** to simulate a Tier 1 SOC investigation workflow.
+**Windows Event Viewer | Splunk Enterprise | SPL | Windows Event ID 4625 | Alert Triage**
 
-**Skills demonstrated:**
-- Windows Security Event Log analysis
-- Splunk SIEM
-- Basic SPL
-- Authentication-event analysis
+Built a personal SOC home lab to develop practical Tier 1 SOC investigation skills.
+
+I generated controlled failed login activity on a Windows 10 virtual machine and investigated five Windows Security Event ID 4625 events using Windows Event Viewer and Splunk Enterprise.
+
+The investigation included log filtering, SIEM analysis, SPL queries, event correlation, timeline analysis and a final triage decision.
+
+**Outcome:** True Positive - Benign Test Activity
+
+---
+
+### [Fintech Cybersecurity & SOC Effectiveness Research](./02-fintech-soc-dissertation/)
+
+**SOC Effectiveness | Remote Working | Fintech | SIEM | Incident Response | Zero Trust**
+
+Final-year BSc (Hons) Cyber Security research project examining the impact of remote working on cybersecurity risks, defence strategies and SOC effectiveness within fintech organisations.
+
+The project used qualitative document analysis and explored areas including SOC visibility, alert fatigue, incident response, SIEM monitoring, MFA, VPNs, Zero Trust, endpoint security and human factors.
+
+The project contains my literature review, research proposal and completed final dissertation.
+
+---
+
+## Technical Skills
+
+### Security Operations & Blue Team
+- Security monitoring
 - Alert triage
-- Event timeline analysis
-- Risk assessment
+- Incident investigation
+- Windows Security Event Log analysis
+- SIEM analysis
 - Incident documentation
 
-[View the full investigation](./01-failed-login-investigation/README.md)
+### Tools & Technologies
+- Splunk Enterprise
+- Splunk Search Processing Language (SPL)
+- Windows Event Viewer
+- Windows 10
+- Oracle VirtualBox
+
+### Cybersecurity Knowledge
+- Security Operations Centres (SOC)
+- Incident response
+- Authentication security
+- Phishing analysis
+- Network security
+- Endpoint security
+- Zero Trust
+- Multi-Factor Authentication (MFA)
+
+---
 
 ## Current Development
 
-I am continuing to develop my practical SOC and Blue Team skills through:
+I am continuing to develop my practical Blue Team and SOC skills through hands-on labs and cybersecurity training.
+
+Current areas of development include:
 
 - TryHackMe SOC Level 1
-- SIEM and log analysis
-- Incident investigation
-- Threat detection
+- SIEM investigation
+- Splunk SPL
 - Windows security monitoring
+- Incident response
+- Alert analysis and triage
 
-Additional investigations will be added to this portfolio as I continue developing my skills.
+Future investigations and projects will be added to this portfolio as I continue developing my practical SOC analyst skills.
+
+---
+
+## Career Focus
+
+I am particularly interested in entry-level opportunities within:
+
+- SOC Analyst / Tier 1 SOC Analyst
+- Junior Security Analyst
+- Security Operations Analyst
+- Security Monitoring Analyst
+- Junior Incident Response
+- Managed Security Service Providers (MSSPs)
+
+My goal is to combine my academic cybersecurity background with practical security operations experience and continue developing within a Blue Team environment.
