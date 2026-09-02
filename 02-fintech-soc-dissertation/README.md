@@ -84,13 +84,22 @@ The research complements the practical investigations in this portfolio, where I
 
 ## Research Documents
 
-The project contains three stages of research:
+The project developed through three stages, from the initial literature review to the completed final dissertation.
 
 ### 1. Literature Review
+
+[View Literature Review](./fintech-remote-working-literature-review.pdf)
+
 Initial investigation of remote-working cybersecurity risks and defence strategies within fintech organisations.
 
 ### 2. Research Proposal
+
+[View Research Proposal](./fintech-soc-research-proposal.pdf)
+
 Development of the research methodology and a more focused investigation into SOC effectiveness.
 
 ### 3. Final Dissertation
+
+[View Final Dissertation](./fintech-soc-effectiveness-dissertation.pdf)
+
 The completed qualitative document analysis examining remote working, cybersecurity defence strategies and SOC effectiveness within fintech organisations.
