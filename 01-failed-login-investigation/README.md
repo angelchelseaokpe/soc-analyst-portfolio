@@ -168,3 +168,34 @@ In a real SOC environment, further investigation would include:
 - Reviewing whether the same source targeted additional accounts
 - Investigating the source IP address
 - Escalating the incident if brute-force or account-compromise behaviour was suspected
+
+## Key Findings
+
+- Five failed authentication attempts were identified through Windows Security Event ID 4625.
+- The attempts targeted the local test account `Bob`.
+- Logon Type 2 showed that the authentication attempts were interactive logons.
+- The source address `127.0.0.1` indicated that the activity originated from the local Windows virtual machine.
+- Windows Event Viewer and Splunk both identified the same failed authentication activity.
+- Splunk SPL was used to filter, analyse and summarise the events.
+- The activity was classified as a **True Positive - Benign Test Activity** because the failed logins genuinely occurred but were intentionally generated as part of the lab.
+
+## Skills Demonstrated
+
+- Windows Security Event Log analysis
+- Windows Event Viewer
+- Splunk Enterprise
+- Splunk Search Processing Language (SPL)
+- SIEM investigation
+- Authentication event analysis
+- Alert triage
+- Event timeline analysis
+- Evidence collection
+- Incident classification
+- Risk assessment
+- Incident documentation
+
+## Project Outcome
+
+This project helped me develop practical experience following a basic Tier 1 SOC investigation workflow, from identifying suspicious authentication activity to analysing the relevant logs, investigating the events in a SIEM and making a final triage decision.
+
+The lab was created to strengthen my practical SOC skills alongside my academic cybersecurity studies and to provide evidence of my ability to apply security monitoring and incident investigation concepts in a hands-on environment.
